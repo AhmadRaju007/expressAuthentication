@@ -1,9 +1,11 @@
 const express = require('express');
+const siteController= require('../controllers/site.controller');
 const router = express.Router();
 const db= require('../db/database');
 
 
 //ROUTES
+router.get('/', siteController.index);
 
 //GETS ALL SITES
 router.get('/', async (req, res)=>{

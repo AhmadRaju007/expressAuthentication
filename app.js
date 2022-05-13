@@ -13,10 +13,16 @@ app.use(bodyParser.json());
 const siteRoute= require('./routes/site');
 app.use('/site', siteRoute);
 
-const userRoute= require('./routes/user');
-app.use('/', userRoute)
+const authRoute= require('./routes/auth');
+app.use('/auth', authRoute);
 
+const logRoute= require('./routes/logs');
+app.use('/log', logRoute);
 
-//LISTEN
+app.get('/', async (req, res)=>{
+    res.json({message: "hello world!"});
+});
+
+// //LISTEN
 const port= process.env.PORT || 3000;
 app.listen(port, ()=> console.log(`Listening on port ${port}...`))
