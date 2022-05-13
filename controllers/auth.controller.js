@@ -31,14 +31,14 @@ async function login(req, res) {
               WHERE username = '${user.username}'`, async function (err, result) {
         if (err) {
             console.log(err);
-        } else {
+        } else if(result.length) {
             const validPassword = await bcrypt.compare(user.password, result[0].password);
             if (validPassword) {
                 const authUser= result[0];
                 authUser.token = jwt.sign(
                   {
                       user: {
-                          id: result[0].id,
+                          id: btoa(result[0].id),
                           username: result[0].username
                       },
                   },
@@ -48,12 +48,13 @@ async function login(req, res) {
                   }
                 );
                 
-                res.status(200).json({ message: "Valid password" });
+                res.status(200).json({ message: "Valid password", user: authUser });
             } else {
                 res.status(400).json({ message: "Invalid Password" });
             }
+        } else{
+            res.status(400).json({ message: "User not found!" });
         }
-        
     });
 }
 
@@ -79,6 +80,7 @@ async function register(req, res){
     
     const salt = await bcrypt.genSalt(10);
     const passHash= await bcrypt.hash(user.password, salt);
+    
     db.query(`SELECT * FROM USERS WHERE username= '${user.username}'`, function (err, result) {
         if (result.length) {
             return res.status(400).json({

@@ -19,9 +19,6 @@ app.use('/site', siteRoute);
 const authRoute= require('./routes/auth');
 app.use('/auth', authRoute);
 
-const logRoute= require('./routes/logs');
-app.use('/log', logRoute);
-
 app.get('/', async (req, res)=>{
     res.json({message: "hello world!"});
 });
