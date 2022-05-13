@@ -3,22 +3,10 @@ const authController= require('../controllers/auth.controller');
 const router = express.Router();
 const db= require('../connection/connect');
 
-
-router.get('/', authController.index);
-
 //LOGIN MODULE
-// router.get('/', async (req, res)=>{
-//     res.json({message: "hello world!"});
-// });
-
-//LOGIN MODULE
-router.get('/login', async (req, res)=>{
-    res.json({message: "hei!"});
-});
+router.post('/login', authController.login);
 
 //REGISTER MODULE
-router.get('/login', async (req, res)=>{
-    res.json({message: "hei!"});
-});
+router.post('/register', authController.register);
 
 module.exports = router;

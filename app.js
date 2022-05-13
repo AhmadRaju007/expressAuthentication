@@ -3,7 +3,7 @@ const express= require('express');
 const app= express();
 const bodyParser= require('body-parser');
 const cors = require('cors');
-require('dotenv/config');
+require('dotenv').config();
 
 //Middlewares
 app.use(cors());
@@ -27,5 +27,5 @@ app.get('/', async (req, res)=>{
 });
 
 // //LISTEN
-const port= process.env.PORT || 3000;
+const port= process.env.APP_PORT || 3001;
 app.listen(port, ()=> console.log(`Listening on port ${port}...`))

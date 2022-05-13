@@ -2,7 +2,7 @@ module.exports = {
     'connection': {
         'host': 'localhost',
         'user': 'root',
-        'password': 'Password123#@!'
+        'password': ""
     },
     'database': 'rxcoders',
     'users_table': 'users',

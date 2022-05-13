@@ -26,15 +26,16 @@ function save(req, res){
             errors: validationResponse
         });
     }
-
-
-    db.promise().query('INSERT INTO SITES(name,jurisdiction,description,latitude,longitude) SET ?', site, function(err, result, fields) {
+    
+    db.query(`INSERT INTO SITES(name,jurisdiction,description,latitude,longitude) VALUES
+       ('${site.name}', '${site.jurisdiction}', '${site.description}', '${site.latitude}', '${site.longitude}')`,
+      function(err, result, fields) {
         if (err){
             console.log(err);
             // handle erroraa
         }else{
             // Your row is inserted you can view
-            console.log(result.insertId);
+            const siteId = result.insertId;
             res.status(201).send({msg: "success"});
         }
     });
