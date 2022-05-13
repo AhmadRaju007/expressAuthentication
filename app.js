@@ -7,7 +7,10 @@ require('dotenv/config');
 
 //Middlewares
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
 
 //Import Routes
 const siteRoute= require('./routes/site');

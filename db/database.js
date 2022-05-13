@@ -4,7 +4,7 @@ module.exports = {
         'user': 'root',
         'password': 'Password123#@!'
     },
-    'database': 'rxcoders1',
+    'database': 'rxcoders',
     'users_table': 'users',
     'logs_table': 'logs',
     'sites_table': 'sites',
