@@ -34,11 +34,10 @@ async function login(req, res) {
         } else if(result.length) {
             const validPassword = await bcrypt.compare(user.password, result[0].password);
             if (validPassword) {
-                const authUser= result[0];
-                authUser.token = jwt.sign(
+                const authtoken = jwt.sign(
                   {
                       user: {
-                          id: btoa(result[0].id),
+                          id: result[0].id,
                           username: result[0].username
                       },
                   },
@@ -48,7 +47,7 @@ async function login(req, res) {
                   }
                 );
                 
-                res.status(200).json({ message: "Valid password", user: authUser });
+                return res.status(200).json({ message: "login successful!", token: authtoken });
             } else {
                 res.status(400).json({ message: "Invalid Password" });
             }
@@ -96,14 +95,11 @@ async function register(req, res){
                           message: "Unknown Error!",
                       });
                   } else{
-                      res.status(201).json({
-                          message: "Successfully Registered!"
-                      });
+                      return res.status(200).json({ message: "Registration successful!"});
                   }
               });
         }
     });
-    
 }
 
 module.exports = {

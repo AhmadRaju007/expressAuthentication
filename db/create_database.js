@@ -32,14 +32,14 @@ CREATE TABLE `' + dbconfig.database + '`.`' + dbconfig.sites_table + '` ( \
 connection.query('\
 CREATE TABLE `' + dbconfig.database + '`.`' + dbconfig.logs_table + '` ( \
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT, \
-    `user_id` int UNSIGNED NOT NULL,\
+    `username` varchar(20) NOT NULL,\
     `site_id` int UNSIGNED NOT NULL,\
     `operation` varchar(10) NOT NULL,\
     `createdAt` datetime DEFAULT CURRENT_TIMESTAMP, \
     `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\
     PRIMARY KEY (`id`),\
-    KEY `log_users_idx` (`user_id`),\
-    CONSTRAINT `log_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT \
+    KEY `log_username` (`username`),\
+    CONSTRAINT `log_users` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE RESTRICT \
 )');
 
 console.log('Success: Database Created!')

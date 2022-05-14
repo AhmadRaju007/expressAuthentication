@@ -27,6 +27,7 @@ function save(req, res){
         });
     }
     
+    //Insert data into sites
     db.query(`INSERT INTO SITES(name,jurisdiction,description,latitude,longitude) VALUES
        ('${site.name}', '${site.jurisdiction}', '${site.description}', '${site.latitude}', '${site.longitude}')`,
       function(err, result, fields) {
@@ -34,9 +35,20 @@ function save(req, res){
             console.log(err);
             // handle erroraa
         }else{
-            // Your row is inserted you can view
+            // Insert data in logs table
             const siteId = result.insertId;
-            res.status(201).send({msg: "success"});
+            const userName = req.user.username;
+            db.query(`INSERT INTO LOGS(username,site_id,operation) VALUES
+               ('${userName}', '${siteId}', 'CREATE')`,
+              function(err, result, fields) {
+                  if (err) {
+                      console.log(err);
+                      res.status(201).send({message: err});
+                  } else {
+                      res.status(201).send({message: "Successfully Created!", siteId: siteId});
+                  }
+              });
+           
         }
     });
 
