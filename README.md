@@ -17,7 +17,7 @@ Now in order to generate your database run following command:
 
 `node db/create_database.js`
 
-When all these are done run following to start your server in port 3000:
+When all these are done run following to start your server in your selected port:
 
 `npm start`
 
