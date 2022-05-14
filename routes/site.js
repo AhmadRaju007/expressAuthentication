@@ -7,13 +7,6 @@ const router = express.Router();
 router.post('/', siteController.save);
 
 //GETS SPECIFIC SITE
-router.get('/:siteId', async (req, res)=>{
-    try{
-        const site = await Site.findById(req.params.siteId);
-        res.json(site);
-    } catch(err){
-        res.json({message: err});
-    }
-});
+router.get('/:siteId', siteController.details);
 
 module.exports = router;
