@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 module.exports = {
     'connection': {
-        'host': 'localhost',
-        'user': 'root',
-        'password': ""
+        'host': process.env.DB_HOST,
+        'user': process.env.DB_USER,
+        'password': process.env.DB_PASSWORD
     },
-    'database': 'rxcoders1',
+    'database': process.env.DB_NAME,
     'users_table': 'users',
     'logs_table': 'logs',
     'sites_table': 'sites',
