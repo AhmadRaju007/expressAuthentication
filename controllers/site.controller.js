@@ -76,7 +76,63 @@ function details(req, res){
   });
   
 }
+
+function update(req, res){
+  const siteId= req.params.siteId;
+  const site= {
+    name: req.body.name,
+    jurisdiction: req.body.jurisdiction,
+    description: req.body.description,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+  }
+  const schema = {
+    name: {type:"string", optional: false, max: "100"},
+    jurisdiction: {type:"string", optional: false, max: "100"},
+    description: {type: "string", optional: true, max: "500"},
+    latitude: {type: "string", optional: false},
+    longitude: {type: "string", optional: false}
+  }
+  
+  const v = new Validator();
+  const validationResponse = v.validate(site, schema);
+  
+  if(validationResponse !== true){
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: validationResponse
+    });
+  }
+  
+  //Insert data into sites
+  db.query(`UPDATE SITES SET
+   name='${site.name}',jurisdiction='${site.jurisdiction}',description='${site.description}',latitude='${site.latitude}',longitude='${site.longitude}'
+   WHERE id='${siteId}'`, function(err, result) {
+      if (err){
+        // handle erroraa
+        console.log(err);
+        res.status(201).send({message: err});
+      }else{
+        // Insert data in logs table
+        const siteId = result.insertId;
+        const userName = req.user.username;
+        db.query(`INSERT INTO LOGS(username,site_id,operation) VALUES
+           ('${userName}', '${siteId}', 'UPDATE')`,
+          function(err) {
+            if (err) {
+              console.log(err);
+              res.status(201).send({message: err});
+            } else {
+              res.status(201).send({message: "Successfully Updated!", siteId: siteId});
+            }
+          });
+      }
+    });
+  
+}
+
 module.exports = {
   save: save,
-  details: details
+  details: details,
+  update: update
 }
