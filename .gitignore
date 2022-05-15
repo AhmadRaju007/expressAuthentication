@@ -1,2 +1,7 @@
 .env
 /node_modules/
+.*
+!.babelrc
+!.env.example
+!.github
+!.gitignore
