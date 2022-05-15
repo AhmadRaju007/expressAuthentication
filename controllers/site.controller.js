@@ -1,13 +1,14 @@
 const Validator = require('fastest-validator');
 const db= require('../connection/connect');
+const sanitizer = require("sanitizer");
 
 function save(req, res){
   const site= {
-    name: req.body.name,
-    jurisdiction: req.body.jurisdiction,
-    description: req.body.description,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
+    name: sanitizer.escape(req.body.name),
+    jurisdiction: sanitizer.escape(req.body.jurisdiction),
+    description: sanitizer.escape(req.body.description),
+    latitude: sanitizer.escape(req.body.latitude),
+    longitude: sanitizer.escape(req.body.longitude),
   }
   const schema = {
     name: {type:"string", optional: false, max: "100"},
@@ -80,11 +81,11 @@ function details(req, res){
 function update(req, res){
   const siteId= req.params.siteId;
   const site= {
-    name: req.body.name,
-    jurisdiction: req.body.jurisdiction,
-    description: req.body.description,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
+    name: sanitizer.escape(req.body.name),
+    jurisdiction: sanitizer.escape(req.body.jurisdiction),
+    description: sanitizer.escape(req.body.description),
+    latitude: sanitizer.escape(req.body.latitude),
+    longitude: sanitizer.escape(req.body.longitude),
   }
   const schema = {
     name: {type:"string", optional: false, max: "100"},
