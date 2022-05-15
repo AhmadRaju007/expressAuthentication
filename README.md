@@ -1,11 +1,7 @@
 <b>Dependencies:</b>
 
-node: v14.17.4
-<<<<<<< HEAD
-mysql Ver 15.1 Distrib 10.4.22-MariaDB
-=======
+node: v14.17.4,
 mysql: 15.1 Distrib 10.4.22-MariaDB
->>>>>>> 15eef1f6d86a84ea1c5c5837938b6b15a510077f
 
 Run following command to clone from github:
 
