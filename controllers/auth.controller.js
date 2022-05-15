@@ -4,11 +4,12 @@ require('dotenv').config();
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
+const sanitizer= require('sanitizer');
 
 async function login(req, res) {
     const user = {
-        username: req.body.username,
-        password: req.body.password
+        username: sanitizer.escape(req.body.username),
+        password: sanitizer.escape(req.body.password)
     };
     
     const schema = {
@@ -59,8 +60,8 @@ async function login(req, res) {
 
 async function register(req, res){
     const user= {
-        username: req.body.username,
-        password: req.body.password
+        username: sanitizer.escape(req.body.username),
+        password: sanitizer.escape(req.body.password)
     }
     const schema = {
         username: {type:"string", optional: false, max: "100"},
