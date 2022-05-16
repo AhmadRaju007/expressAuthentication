@@ -115,7 +115,7 @@ function update(req, res){
         res.status(201).send({message: err});
       }else{
         // Insert data in logs table
-        const siteId = result.insertId;
+        // const siteId = result.insertId;
         const userName = req.user.username;
         db.query(`INSERT INTO LOGS(username,site_id,operation) VALUES
            ('${userName}', '${siteId}', 'UPDATE')`,
